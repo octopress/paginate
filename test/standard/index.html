@@ -7,5 +7,7 @@ paginate: true
 
 Posts:
 
-{% for post in site.posts %}
+{% for post in paginator.posts %}
 {{ post.title }}{% endfor %}
+
+{% include paginator_data.html %}

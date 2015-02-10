@@ -1,5 +1,7 @@
 require "octopress-hooks"
 require "octopress-paginate/version"
+require "octopress-paginate/hooks"
+require "octopress-paginate/page"
 
 module Octopress
   module Paginate
@@ -14,37 +16,7 @@ module Octopress
       'page_num'     => 1
     }
 
-    class SiteHook < Hooks::Site
-      def post_read(site)
-        site.pages.select {|p| p.data['paginate'] }.each do |page|
-          Octopress::Paginate.paginate(page)
-        end
-      end
-    end
-
-    class PageHook < Hooks::Page
-      def merge_payload(payload, page)
-        if page.data['paginate']
-          Octopress::Paginate.page_payload(payload)
-        end
-      end
-    end
-
-    class PaginationPage < Jekyll::Page
-      def initialize(site, base, index, template)
-        @site = site
-        @base = base
-        @dir  = File.join(template.dir, template.data['paginate']['permalink'].clone.sub(':num', index.to_s))
-        @name = 'index.html'
-        process(name)
-        read_yaml(File.join(base, File.dirname(template.path)), File.basename(template.path))
-
-        self.data.delete('permalink')
-        self.data.merge!({ 'paginate' => template.data['paginate'].clone })
-        self.data['paginate']['page_num'] = index
-        self.data['title'] << data['paginate']['title_suffix'].sub(/:num/, data['paginate']['page_num'].to_s)
-      end
-    end
+    LOOP = /(paginate.+\s+in)\s+(site\.(.+?))(.+)%}/
 
     def paginate(page)
       if page.data['paginate'].is_a? Hash
@@ -64,9 +36,31 @@ module Octopress
         pages = [pages, config['limit'] - 1].min
       end
 
+      page.data['paginate']['pages'] = pages + 1
+
+      new_pages = []
+
       pages.times do |i|
-        page.site.pages << PaginationPage.new(page.site, page.site.source, i+2, page)
+        new_pages << PaginationPage.new(page.site, page.site.source, i+2, page)
       end
+
+      all_pages = [page].concat(new_pages)
+
+      all_pages.each_with_index do |p, index|
+
+        if index > 0
+          prev_page = all_pages[index - 1]
+          p.data['paginate']['previous_page'] = index
+          p.data['paginate']['previous_page_path'] = prev_page.url
+        end
+
+        if next_page = all_pages[index + 1]
+          p.data['paginate']['next_page'] = index + 2
+          p.data['paginate']['next_page_path'] = next_page.url
+        end
+      end
+
+      page.site.pages.concat new_pages
     end
 
     def collection(page)
@@ -81,21 +75,30 @@ module Octopress
       end
     end
 
-    def page_payload(payload)
-      p = {}
-      p['site'] = {}
-      p['site'][payload['page']['paginate']['collection']] = items(payload)
-      p
+    def page_payload(payload, page)
+      config = page.data['paginate']
+      collection = items(payload)
+      { 'paginator' => {
+        "#{config['collection']}"       => collection,
+        "page"                          => config['page_num'],
+        "per_page"                      => config['per_page'],
+        "limit"                         => config['limit'],
+        "total_#{config['collection']}" => payload['site'][config['collection']].size,
+        "total_pages"                   => config['pages'],
+        'previous_page'                 => config['previous_page'],
+        'previous_page_path'            => config['previous_page_path'],
+        'next_page'                     => config['next_page'],
+        'next_page_path'                => config['next_page_path']
+      }}
     end
 
     def items(payload)
-      site = payload['site']
       config = payload['page']['paginate']
 
-      items = site[config['collection']]
       n = (config['page_num'] - 1) * config['per_page']
       max = n + (config['per_page'] - 1)
-      items[n..max]
+
+      payload['site'][config['collection']][n..max]
     end
 
   end
