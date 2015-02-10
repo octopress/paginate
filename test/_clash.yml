@@ -1,0 +1,5 @@
+- 
+  title: Test Build
+  dir: site
+  build: true
+  compare: _expected _site
