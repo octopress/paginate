@@ -47,13 +47,18 @@ module Octopress
     end
 
     def paginate(page)
-      page.data['paginate'].merge!(DEFAULT.merge(page.data['paginate']))
+      if page.data['paginate'].is_a? Hash
+        page.data['paginate'] = DEFAULT.merge(page.data['paginate'])
+      else
+        page.data['paginate'] = DEFAULT
+      end
+
       add_pages(page)
     end
 
     def add_pages(page)
       config = page.data['paginate']
-      pages = collection(page).size / config['per_page']
+      pages = (collection(page).size.to_f / config['per_page']).ceil - 1
 
       if config['limit'] > 0
         pages = [pages, config['limit'] - 1].min
@@ -66,7 +71,11 @@ module Octopress
 
     def collection(page)
       if page['paginate']['collection'] == 'posts'
-        page.site.posts
+        if defined?(Octopress::Multilingual) && page.lang
+          page.site.posts_by_language[page.lang]
+        else
+          page.site.posts
+        end
       else
         page.site.collections[page['paginate']['collection']]
       end

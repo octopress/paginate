@@ -1,0 +1,14 @@
+---
+title: Posts
+permalink: /:lang/posts/
+lang: en
+paginate:
+  per_page: 5
+---
+{{ page.title }}
+
+Test content
+
+{% for post in site.posts %}
+  {{ post.title }}
+{% endfor %}

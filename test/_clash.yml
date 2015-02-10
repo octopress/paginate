@@ -1,5 +1,12 @@
 - 
-  title: Test Build
-  dir: site
+  title: Standard build
+  dir: standard
   build: true
-  compare: _expected _site
+  compare: _expected/posts _site/posts
+- 
+  title: Test Language based pagination
+  dir: multilingual
+  build: true
+  compare: 
+    - _expected/de/posts _site/de/posts
+    - _expected/en/posts _site/en/posts

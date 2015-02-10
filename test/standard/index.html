@@ -1,0 +1,12 @@
+---
+title: Posts
+permalink: /posts/
+paginate: true
+---
+{{ page.title }}
+
+Test content
+
+{% for post in site.posts %}
+  {{ post.title }}
+{% endfor %}
