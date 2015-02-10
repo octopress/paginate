@@ -77,7 +77,7 @@ module Octopress
           page.site.posts
         end
       else
-        page.site.collections[page['paginate']['collection']]
+        page.site.collections[page['paginate']['collection']].docs
       end
     end
 

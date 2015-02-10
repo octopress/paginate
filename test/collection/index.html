@@ -1,0 +1,13 @@
+---
+title: Penguins
+permalink: /penguins/
+paginate:
+  collection: penguins
+  per_page: 4
+---
+{{ page.title }}
+
+Penguins:
+
+{% for penguin in site.penguins %}
+{{ penguin.title }}{% endfor %}
