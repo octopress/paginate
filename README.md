@@ -63,6 +63,25 @@ paginate:
 {% endfor %}
 ```
 
+### Multilingual pagination
+
+If you are running a multilingual site with [octopress-multilingual](https://github.com/octopress/multilingual), simply set a language for your pagination template and posts will be filtered by that language. For example:
+
+```
+---
+Title: "Deutsch Posts"
+permalink: /de/posts/ # <- Or wherever makes sense on your site
+paginate: true
+lang: de  # <- Add a language
+---
+
+{% for posts in paginator.posts %}
+/ do stuff /
+{% endfor %}
+```
+
+That's all there is to it.
+
 ### Template variables
 
 Just like Jekyll's paginator, your pagination pages will have access to the following liquid variables.
