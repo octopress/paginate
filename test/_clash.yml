@@ -14,6 +14,11 @@
   build: true
   compare: _expected/posts _site/posts
 - 
+  title: Test site configuration defaults
+  dir: site-config
+  build: true
+  compare: ../no-limit/_expected/posts _site/posts
+- 
   title: Test collection pagination
   dir: collection
   build: true
