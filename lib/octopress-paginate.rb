@@ -19,10 +19,13 @@ module Octopress
     LOOP = /(paginate.+\s+in)\s+(site\.(.+?))(.+)%}/
 
     def paginate(page)
+
+      defaults = DEFAULT.merge(page.site.config['pagination'] || {})
+
       if page.data['paginate'].is_a? Hash
-        page.data['paginate'] = DEFAULT.merge(page.data['paginate'])
+        page.data['paginate'] = defaults.merge(page.data['paginate'])
       else
-        page.data['paginate'] = DEFAULT
+        page.data['paginate'] = defaults
       end
 
       if tag = page.data['paginate']['tag']
@@ -40,7 +43,7 @@ module Octopress
       config = page.data['paginate']
       pages = (collection(page).size.to_f / config['per_page']).ceil - 1
 
-      if config['limit'] > 0
+      if config['limit']
         pages = [pages, config['limit'] - 1].min
       end
 
