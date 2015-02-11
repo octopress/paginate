@@ -118,6 +118,16 @@ module Octopress
 
       collection[n..max]
     end
-
   end
+end
+
+if defined? Octopress::Docs
+  Octopress::Docs.add({
+    name:        "Octopress Paginate",
+    gem:         "octopress-paginate",
+    version:     Octopress::Paginate::VERSION,
+    description: "Simple and flexible pagination for Jekyll posts and collections",
+    path:        File.expand_path(File.join(File.dirname(__FILE__), "../")),
+    source_url:  "https://github.com/octopress/paginate"
+  })
 end
