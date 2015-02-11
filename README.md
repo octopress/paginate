@@ -85,21 +85,38 @@ Just like Jekyll's paginator, your pagination pages will have access to the foll
 
 ## Configuration
 
-In a page's YAML front-matter, setting `paginate: true` turns that page into a template for pagination. To configure pagination,
-set the options for the `paginate` key. Here are the defaults.
+Pagination is configured on a per-page basis under the `paginate` key in a page's YAML front-matter. Setting `paginate: true` enables pagination with these defaults.
 
 ```yaml
 paginate:
   collection:   posts
-  per_page:     10             # maximum number of posts per page 
-  limit:        5              # Maximum number of pages to paginate (0 for unlimited)
+  per_page:     10             # maximum number of items per page 
+  limit:        5              # Maximum number of pages to paginate (false for unlimited)
   permalink:    /page:num/     # pagination path (relative to template page)
   title_suffix: " - page :num" # Append to template's page title
-  category:     ''             # Paginate posts in this category
-  categories:   []             # Paginate posts in any of these categories
-  tag:          ''             # Paginate posts tagged with this tag
-  tags:         []             # Paginate posts tagged with any of these tags
+  category:     ''             # Paginate items in this category
+  categories:   []             # Paginate items in any of these categories
+  tag:          ''             # Paginate items tagged with this tag
+  tags:         []             # Paginate items tagged with any of these tags
 ```
+
+Why set a pagination limit? For sites with lots of posts, this should speed up your build time considerably since Jekyll won't have to generate and write so many additional pages. Additionally, I suspect that it is very uncommon for users to browse paginated post indexes beyond a few pages. If you don't like it, it's easy to disable.
+
+### Site-wide pagination defaults
+
+You can set your own site-wide pagination defaults by configuring the `pagination` key in Jekyll's site config. 
+
+<!-- title:"Site wide configuration _config.yml" -->
+
+```yaml
+pagination:
+  limit: false
+  per_page: 20
+  title_suffix: " (page :num)"
+```
+
+Note: this will only change the defaults. A page's YAML front-matter will
+override these defaults.
 
 ### Pagination permalinks
 
