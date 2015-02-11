@@ -25,6 +25,14 @@ module Octopress
         page.data['paginate'] = DEFAULT
       end
 
+      if tag = page.data['paginate']['tag']
+        page.data['paginate']['tags'] = Array(tag)
+      end
+
+      if category = page.data['paginate']['category']
+        page.data['paginate']['categories'] = Array(category)
+      end
+
       add_pages(page)
     end
 
@@ -64,26 +72,36 @@ module Octopress
     end
 
     def collection(page)
-      if page['paginate']['collection'] == 'posts'
+      collection = if page['paginate']['collection'] == 'posts'
         if defined?(Octopress::Multilingual) && page.lang
           page.site.posts_by_language[page.lang]
         else
-          page.site.posts
+          page.site.posts.reverse
         end
       else
         page.site.collections[page['paginate']['collection']].docs
       end
+
+      if categories = page.data['paginate']['categories']
+        collection = collection.reject{|p| (p.categories & categories).empty?}
+      end
+
+      if tags = page.data['paginate']['tags']
+        collection = collection.reject{|p| (p.tags & tags).empty?}
+      end
+
+      collection
     end
 
     def page_payload(payload, page)
       config = page.data['paginate']
-      collection = items(payload)
+      collection = collection(page)
       { 'paginator' => {
-        "#{config['collection']}"       => collection,
+        "#{config['collection']}"       => items(payload, collection),
         "page"                          => config['page_num'],
         "per_page"                      => config['per_page'],
         "limit"                         => config['limit'],
-        "total_#{config['collection']}" => payload['site'][config['collection']].size,
+        "total_#{config['collection']}" => collection.size,
         "total_pages"                   => config['pages'],
         'previous_page'                 => config['previous_page'],
         'previous_page_path'            => config['previous_page_path'],
@@ -92,13 +110,13 @@ module Octopress
       }}
     end
 
-    def items(payload)
+    def items(payload, collection)
       config = payload['page']['paginate']
 
       n = (config['page_num'] - 1) * config['per_page']
       max = n + (config['per_page'] - 1)
 
-      payload['site'][config['collection']][n..max]
+      collection[n..max]
     end
 
   end

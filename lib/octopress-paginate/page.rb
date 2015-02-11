@@ -12,6 +12,8 @@ module Octopress
         self.data.delete('permalink')
         self.data.merge!({ 'paginate' => template.data['paginate'].clone })
         self.data['paginate']['page_num'] = index
+
+        self.data['title'] ||= self.data['paginate']['collection'].capitlaize
         self.data['title'] << data['paginate']['title_suffix'].sub(/:num/, data['paginate']['page_num'].to_s)
       end
     end
