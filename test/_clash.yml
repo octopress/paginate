@@ -19,6 +19,11 @@
   build: true
   compare: _expected/penguins _site/penguins
 - 
+  title: Test category filtering
+  dir: filter-category
+  build: true
+  compare: _expected/posts _site/posts
+- 
   title: Language index pagination
   dir: multilingual
   build: true

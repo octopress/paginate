@@ -1,0 +1,15 @@
+---
+title: Posts
+permalink: /posts/
+paginate:
+  category: awesome
+  per_page: 3
+---
+{{ page.title }}
+
+Posts:
+
+{% for post in paginator.posts %}
+{{ post.title }}{% endfor %}
+
+{% include paginator_data.html %}
