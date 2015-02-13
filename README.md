@@ -88,18 +88,18 @@ Just like Jekyll's paginator, your pagination pages will have access to the foll
 
 
 ```yaml
-{{ paginator.total_pages }}          # Number of paginated pages
-{{ paginator.total_posts }}          # Total number of posts being paginated
-{{ paginator.per_page }}             # Posts per page
-{{ paginator.limit }}                # Maximum number of paginated pages
-{{ paginator.page }}                 # Current page number
-{{ paginator.previous_page }}        # Previous page number (nil if first page)
-{{ paginator.previous_page_path }}   # Url for previous page (nil if first page)
-{{ paginator.next_page }}            # Next page number (nil if last page)
-{{ paginator.next_page_path }}       # Next page URL (nil if last page)
+paginator.total_pages          # Number of paginated pages
+paginator.total_posts          # Total number of posts being paginated
+paginator.per_page             # Posts per page
+paginator.limit                # Maximum number of paginated pages
+paginator.page                 # Current page number
+paginator.previous_page        # Previous page number (nil if first page)
+paginator.previous_page_path   # Url for previous page (nil if first page)
+paginator.next_page            # Next page number (nil if last page)
+paginator.next_page_path       # Next page URL (nil if last page)
 
 # If you're pagination through a collection named `penguins`
-{{ pagination.total_penguins }}      # Total number of peguins being paginated
+pagination.total_penguins      # Total number of peguins being paginated
 ```
 
 ## Configuration
