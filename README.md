@@ -8,6 +8,10 @@ Simple and flexible pagination for Jekyll sites featuring:
 - Filter by categories or tags
 - Multi-language support (with [octopress-multilingual](https://github.com/octopress/multilingual))
 
+[![Build Status](http://img.shields.io/travis/octopress/paginate.svg)](https://travis-ci.org/octopress/paginate)
+[![Gem Version](http://img.shields.io/gem/v/octopress-paginate.svg)](https://rubygems.org/gems/octopress-paginate)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://octopress.mit-license.org)
+
 ## Installation
 
 If you're using bundler add this gem to your site's Gemfile in the `:jekyll_plugins` group:
