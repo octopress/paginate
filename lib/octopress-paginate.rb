@@ -1,7 +1,6 @@
 require "octopress-hooks"
 require "octopress-paginate/version"
 require "octopress-paginate/hooks"
-require "octopress-paginate/page"
 
 module Octopress
   module Paginate
@@ -17,6 +16,11 @@ module Octopress
     }
 
     LOOP = /(paginate.+\s+in)\s+(site\.(.+?))(.+)%}/
+
+    # Simple Page class override
+    class PaginationPage < Jekyll::Page
+      attr_accessor :dir, :name
+    end
 
     def paginate(page)
 
@@ -52,7 +56,22 @@ module Octopress
       new_pages = []
 
       pages.times do |i|
-        new_pages << PaginationPage.new(page.site, page.site.source, i+2, page)
+        index = i+2
+        new_page = PaginationPage.new(page.site, page.site.source, File.dirname(page.path), File.basename(page.path))
+        new_page.process('index.html')
+        new_page.data.delete('permalink')
+
+        new_page.data.merge!({'paginate' => page.data['paginate'].clone})
+        new_page.data['paginate']['page_num'] = index
+
+        title = page.data['title'].clone || page.data['paginate']['collection'].capitlaize
+        title << page.data['paginate']['title_suffix'].sub(/:num/, index.to_s)
+        new_page.data['title'] = title
+
+        subdir = page.data['paginate']['permalink'].clone.sub(':num', index.to_s)
+        new_page.dir = File.join(page.dir, subdir)
+
+        new_pages << new_page
       end
 
       all_pages = [page].concat(new_pages)
