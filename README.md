@@ -35,9 +35,7 @@ Then add the gem to your Jekyll configuration.
 
 ## Usage
 
-### To paginate posts
-
-Create a page to be used as the pagination template.
+To paginate posts, create a page to be used as the pagination template.
 
 ```
 ---
@@ -50,10 +48,7 @@ paginate: true
 {% endfor %}
 ```
 
-### To paginate collections
-
-This is basically the same as paginating posts, except you have to configure the paginate collection and set up the paginator to
-use the collection name.
+Paginating collection is almost the same as posts except you need to set the collection to paginate.
 
 ```
 ---
