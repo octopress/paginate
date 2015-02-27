@@ -64,7 +64,7 @@ module Octopress
         new_page.data.merge!({'paginate' => page.data['paginate'].clone})
         new_page.data['paginate']['page_num'] = index
 
-        title = page.data['title'].clone || page.data['paginate']['collection'].capitlaize
+        title = page.data['title'].clone || page.data['paginate']['collection'].capitalize
         title << page.data['paginate']['title_suffix'].sub(/:num/, index.to_s)
         new_page.data['title'] = title
 
