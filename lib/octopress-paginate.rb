@@ -130,8 +130,8 @@ module Octopress
 
     def collection(page)
       collection = if page['paginate']['collection'] == 'posts'
-        if defined?(Octopress::Multilingual) && page.lang
-          page.site.posts_by_language[page.lang]
+        if Octopress.multilingual? && page.lang
+          page.site.posts_by_language(page.lang)
         else
           page.site.posts.reverse
         end
