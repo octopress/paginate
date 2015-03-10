@@ -1,6 +1,8 @@
 module Octopress
   module Paginate
     class SiteHook < Hooks::Site
+      priority :low
+
       def post_read(site)
         site.pages.select {|p| p.data['paginate'] }.each do |page|
           Octopress::Paginate.paginate(page)
