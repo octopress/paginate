@@ -12,7 +12,7 @@ module Octopress
       'limit'        => 5,
       'permalink'    => '/page:num/',
       'title_suffix' => ' - page :num',
-      'page_num'     => 1
+      'page_num'     => 1,
       'reversed'     => false
     }
 
