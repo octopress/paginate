@@ -10,6 +10,8 @@ module Octopress
       'collection'   => 'posts',
       'per_page'     => 10,
       'limit'        => 5,
+      'sort'         => 'name',
+      'sort_direction' => 'ASC',
       'permalink'    => '/page:num/',
       'title_suffix' => ' - page :num',
       'page_num'     => 1
@@ -146,7 +148,20 @@ module Octopress
       if tags = page.data['paginate']['tags']
         collection = collection.reject{|p| (p.tags & tags).empty?}
       end
-
+      
+      # sort by basename of doccument
+      if page.data['paginate']['sort'].to_s == 'name'
+        collection = collection.sort! { |a,b| a.basename <=> b.basename }
+      # sort by attribute
+      else
+        key = page.data['paginate']['sort'].to_s
+        collection = collection.sort! { |a,b| a.data[key] <=> b.data[key] }
+      end
+      
+      # sort desc
+      if page.data['paginate']['sort_direction'].to_s.upcase == 'DESC'
+        collection = collection.reverse
+      end
       collection
     end
 
