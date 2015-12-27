@@ -151,7 +151,11 @@ module Octopress
       
       # sort by basename of doccument
       if page.data['paginate']['sort'].to_s == 'name'
-        collection = collection.sort! { |a,b| a.basename <=> b.basename }
+        if collection.first.respond_to?(:basename)
+          collection = collection.sort! { |a,b| a.basename <=> b.basename }
+        elsif collection.first.respond_to?(:name)
+          collection = collection.sort! { |a,b| a.name <=> b.name }
+        end
       # sort by attribute
       else
         key = page.data['paginate']['sort'].to_s
