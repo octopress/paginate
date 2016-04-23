@@ -114,6 +114,8 @@ paginate:
   title_suffix: " - page :num" # Append to template's page title
   category:     ''             # Paginate items in this category
   categories:   []             # Paginate items in any of these categories
+  exclude_category: ''         # Exclude items in this category
+  exclude_categories: []       # Exclude items in any of those categories
   tag:          ''             # Paginate items tagged with this tag
   tags:         []             # Paginate items tagged with any of these tags
 ```
