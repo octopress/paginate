@@ -6,7 +6,7 @@ module Octopress
           Octopress::Paginate.paginate(page)
         end
       end
-      Jekyll::Hooks.register :page, :pre_render do |page, payload|
+      Jekyll::Hooks.register :pages, :pre_render do |page, payload|
         if page.data['paginate']
           payload['paginator'] = Octopress::Paginate.page_payload(payload, page)
         end
