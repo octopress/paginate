@@ -157,12 +157,15 @@ module Octopress
     def page_payload(payload, page)
       config = page.data['paginate']
       collection = collection(page)
+      collection_items = items(payload, collection)
       {
-        "#{config['collection']}"       => items(payload, collection),
+        "#{config['collection']}"       => collection_items,
+        "items"                         => collection_items,
         "page"                          => config['page_num'],
         "per_page"                      => config['per_page'],
         "limit"                         => config['limit'],
         "total_#{config['collection']}" => collection.size,
+        "total_items"                   => collection.size,
         "total_pages"                   => config['pages'],
         'previous_page'                 => config['previous_page'],
         'previous_page_path'            => config['previous_page_path'],
