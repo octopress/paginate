@@ -107,15 +107,16 @@ Pagination is configured on a per-page basis under the `paginate` key in a page'
 
 ```yaml
 paginate:
-  collection:   posts
-  per_page:     10             # maximum number of items per page 
-  limit:        5              # Maximum number of pages to paginate (false for unlimited)
-  permalink:    /page:num/     # pagination path (relative to template page)
-  title_suffix: " - page :num" # Append to template's page title
-  category:     ''             # Paginate items in this category
-  categories:   []             # Paginate items in any of these categories
-  tag:          ''             # Paginate items tagged with this tag
-  tags:         []             # Paginate items tagged with any of these tags
+  collection:     posts
+  per_page:       10             # maximum number of items per page 
+  limit:          5              # Maximum number of pages to paginate (false for unlimited)
+  permalink:      /page:num/     # pagination path (relative to template page)
+  title_suffix:   " - page :num" # Append to template's page title
+  category:       ''             # Paginate items in this category
+  categories:     []             # Paginate items in any of these categories
+  tag:            ''             # Paginate items tagged with this tag
+  tags:           []             # Paginate items tagged with any of these tags
+  match_all_tags: ''             # Paginate items that contains ALL the tags specified in the 'tags' array
 ```
 
 Why set a pagination limit? For sites with lots of posts, this should speed up your build time considerably since Jekyll won't have to generate and write so many additional pages. Additionally, I suspect that it is very uncommon for users to browse paginated post indexes beyond a few pages. If you don't like it, it's easy to disable.
