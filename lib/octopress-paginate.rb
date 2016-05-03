@@ -7,12 +7,13 @@ module Octopress
     extend self
 
     DEFAULT = {
-      'collection'   => 'posts',
-      'per_page'     => 10,
-      'limit'        => 5,
-      'permalink'    => '/page:num/',
-      'title_suffix' => ' - page :num',
-      'page_num'     => 1
+      'collection'   	=> 'posts',
+      'per_page'     	=> 10,
+      'limit'        	=> 5,
+      'permalink'    	=> '/page:num/',
+      'title_suffix' 	=> ' - page :num',
+      'page_num'     	=> 1,
+      'match_all_tags'	=> nil
     }
 
     LOOP = /(paginate.+\s+in)\s+(site\.(.+?))(.+)%}/
@@ -144,9 +145,13 @@ module Octopress
       end
 
       if tags = page.data['paginate']['tags']
-        collection = collection.reject{|p| (p.tags & tags).empty?}
+        if page.data['paginate']['match_all_tags']
+          collection = collection.reject{|p| (tags - p.tags).any?}
+        else
+          collection = collection.reject{|p| (p.tags & tags).empty?}
+        end
       end
-
+      
       collection
     end
 
