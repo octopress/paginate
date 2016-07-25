@@ -1,37 +1,37 @@
-- 
+-
   title: Standard build
   dir: standard
   build: true
   compare: _expected/posts _site/posts
-- 
+-
   title: Test limit on pagination
   dir: limit
   build: true
   compare: _expected/posts _site/posts
-- 
+-
   title: Test no limit on pagination
   dir: no-limit
   build: true
   compare: _expected/posts _site/posts
-- 
+-
   title: Test site configuration defaults
   dir: site-config
   build: true
   compare: ../no-limit/_expected/posts _site/posts
-- 
+-
   title: Test collection pagination
   dir: collection
   build: true
   compare: _expected/penguins _site/penguins
-- 
+-
   title: Test category filtering
   dir: filter-category
   build: true
   compare: _expected/posts _site/posts
-- 
+-
   title: Language index pagination
   dir: multilingual
   build: true
-  compare: 
+  compare:
     - _expected/de/posts _site/de/posts
     - _expected/en/posts _site/en/posts
