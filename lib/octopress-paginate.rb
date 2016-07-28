@@ -133,18 +133,18 @@ module Octopress
         if defined?(Octopress::Multilingual) && page.lang
           page.site.posts_by_language(page.lang)
         else
-          page.site.posts.reverse
+          page.site.posts.docs.reverse
         end
       else
         page.site.collections[page['paginate']['collection']].docs
       end
 
       if categories = page.data['paginate']['categories']
-        collection = collection.reject{|p| (p.categories & categories).empty?}
+        collection = collection.reject{|p| (p['categories'] & categories).empty?}
       end
 
       if tags = page.data['paginate']['tags']
-        collection = collection.reject{|p| (p.tags & tags).empty?}
+        collection = collection.reject{|p| (p['tags'] & tags).empty?}
       end
 
       collection
