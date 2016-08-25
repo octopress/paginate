@@ -108,7 +108,7 @@ Pagination is configured on a per-page basis under the `paginate` key in a page'
 ```yaml
 paginate:
   collection:   posts
-  per_page:     10             # maximum number of items per page 
+  per_page:     10             # maximum number of items per page
   limit:        5              # Maximum number of pages to paginate (false for unlimited)
   permalink:    /page:num/     # pagination path (relative to template page)
   title_suffix: " - page :num" # Append to template's page title
@@ -116,13 +116,14 @@ paginate:
   categories:   []             # Paginate items in any of these categories
   tag:          ''             # Paginate items tagged with this tag
   tags:         []             # Paginate items tagged with any of these tags
+  reversed:     false          # Reverse the order of the documents
 ```
 
 Why set a pagination limit? For sites with lots of posts, this should speed up your build time considerably since Jekyll won't have to generate and write so many additional pages. Additionally, I suspect that it is very uncommon for users to browse paginated post indexes beyond a few pages. If you don't like it, it's easy to disable.
 
 ### Site-wide pagination defaults
 
-You can set your own site-wide pagination defaults by configuring the `pagination` key in Jekyll's site config. 
+You can set your own site-wide pagination defaults by configuring the `pagination` key in Jekyll's site config.
 
 <!-- title:"Site wide configuration _config.yml" -->
 
@@ -138,7 +139,7 @@ override these defaults.
 
 ### Pagination permalinks
 
-Assume your pagination template page was at `/index.html`. The second pagination page would be 
+Assume your pagination template page was at `/index.html`. The second pagination page would be
 published to `/page2/index.html` by default. If your template page was at `/posts/index.html` or if was configured
 with `permalink: /posts/` the second pagination page would be published to `/posts/page2/index.html`.
 
