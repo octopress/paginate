@@ -12,7 +12,8 @@ module Octopress
       'limit'        => 5,
       'permalink'    => '/page:num/',
       'title_suffix' => ' - page :num',
-      'page_num'     => 1
+      'page_num'     => 1,
+      'reversed'     => false
     }
 
     LOOP = /(paginate.+\s+in)\s+(site\.(.+?))(.+)%}/
@@ -137,6 +138,10 @@ module Octopress
         end
       else
         page.site.collections[page['paginate']['collection']].docs
+      end
+      
+      if page['paginate']['reversed'] == true
+        collection = collection.reverse
       end
 
       if categories = page.data['paginate']['categories']
