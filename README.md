@@ -8,30 +8,38 @@ Simple and flexible pagination for Jekyll sites featuring:
 - Filter by categories or tags
 - Multi-language support (with [octopress-multilingual](https://github.com/octopress/multilingual))
 
-[![Build Status](http://img.shields.io/travis/octopress/paginate.svg)](https://travis-ci.org/octopress/paginate)
-[![Gem Version](http://img.shields.io/gem/v/octopress-paginate.svg)](https://rubygems.org/gems/octopress-paginate)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://octopress.mit-license.org)
+[![Build Status](https://img.shields.io/travis/octopress/paginate/master.svg)](https://travis-ci.org/octopress/paginate)
+[![Gem Version](https://img.shields.io/gem/v/octopress-paginate.svg)](https://rubygems.org/gems/octopress-paginate)
+[![License](https://img.shields.io/:license-mit-blue.svg)](https://octopress.mit-license.org)
 
 ## Installation
 
 If you're using bundler add this gem to your site's Gemfile in the `:jekyll_plugins` group:
 
-    group :jekyll_plugins do
-      gem 'octopress-paginate'
-    end
+```ruby
+group :jekyll_plugins do
+  gem 'octopress-paginate'
+end
+```
 
 Then install the gem with Bundler
 
-    $ bundle
+```shell
+$ bundle
+```
 
 To install manually without bundler:
 
-    $ gem install octopress-paginate
+```shell
+$ gem install octopress-paginate
+```
 
 Then add the gem to your Jekyll configuration.
 
-    gems:
-      - octopress-paginate
+```ruby
+gems:
+  - octopress-paginate
+```
 
 ## Usage
 
@@ -84,7 +92,6 @@ That's all there is to it.
 ### Template variables
 
 Just like Jekyll's paginator, your pagination pages will have access to the following liquid variables.
-
 
 ```yaml
 paginator.total_pages          # Number of paginated pages
@@ -143,10 +150,9 @@ Assume your pagination template page was at `/index.html`. The second pagination
 published to `/page2/index.html` by default. If your template page was at `/posts/index.html` or if was configured
 with `permalink: /posts/` the second pagination page would be published to `/posts/page2/index.html`.
 
-
 Here are some examples:
 
-```
+```yaml
 paginate:
   permalink /page-:num/  # => /page-2/index.html
   permalink /page/:num/  # => /page/2/index.html
@@ -157,7 +163,7 @@ You get the idea.
 
 ## Contributing
 
-1. Fork it ( https://github.com/octopress/paginate/fork )
+1. Fork it (<https://github.com/octopress/paginate/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
