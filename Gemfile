@@ -1,4 +1,12 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-# Specify your gem's dependencies in octopress-paginate.gemspec
-gemspec
+gemspec :name => "octopress-paginate"
+
+gem "rake", "~> 11.0"
+
+group :development do
+  gem "clash"
+  gem "octopress"
+  gem "octopress-multilingual"
+  gem "pry-byebug"
+end
