@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.2.0 (2016-09-24)
+
+- Fix deprecation warnings with Jekyll 3.
+- Add `reverse` capability.
+
 ### 1.1.1 (2015-02-27)
 
 - Fix: Typo caused paginated collections to fail.
