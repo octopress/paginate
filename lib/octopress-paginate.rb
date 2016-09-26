@@ -151,6 +151,10 @@ module Octopress
       if tags = page.data['paginate']['tags']
         collection = collection.reject{|p| (p.tags & tags).empty?}
       end
+      
+      if collection_tag = page.data['paginate']['collection_tag']
+        collection = collection.reject{|p| (not p.data['tags'].include? collection_tag)}
+      end
 
       collection
     end
