@@ -47,6 +47,10 @@ module Octopress
         page.data['paginate']['categories'] = Array(category)
       end
 
+      if exclude_category = page.data['paginate']['exclude_category']
+        page.data['paginate']['exclude_categories'] = Array(exclude_category)
+      end
+
       add_pages(page)
     end
 
@@ -146,6 +150,10 @@ module Octopress
 
       if categories = page.data['paginate']['categories']
         collection = collection.reject{|p| (p.categories & categories).empty?}
+      end
+
+      if exclude_categories = page.data['paginate']['exclude_categories']
+        collection = collection.reject{|p| !(p.categories & exclude_categories).empty?}
       end
 
       if tags = page.data['paginate']['tags']
