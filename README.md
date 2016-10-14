@@ -154,9 +154,9 @@ Here are some examples:
 
 ```yaml
 paginate:
-  permalink /page-:num/  # => /page-2/index.html
-  permalink /page/:num/  # => /page/2/index.html
-  permalink /:num/       # => /2/index.html
+  permalink: /page-:num/  # => /page-2/index.html
+  permalink: /page/:num/  # => /page/2/index.html
+  permalink: /:num/       # => /2/index.html
 ```
 
 You get the idea.
