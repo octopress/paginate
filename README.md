@@ -144,6 +144,15 @@ pagination:
 Note: this will only change the defaults. A page's YAML front-matter will
 override these defaults.
 
+### Remove Octopress pagination defaults
+
+If you had previously installed and configured Octopress as described at [Initial setup](http://octopress.org/docs/setup/) section you end up with a `_config.yml` which contains the two lines:
+
+    paginate: 10          # Posts per page on the blog index
+    paginate_path: "posts/:num"  # Directory base for pagination URLs eg. /posts/2/
+
+If you use the `paginate` key in a page's YAML front-matter you should have to remove the two lines in order to avoid [strange behaviour](https://github.com/octopress/paginate/issues/9).
+
 ### Pagination permalinks
 
 Assume your pagination template page was at `/index.html`. The second pagination page would be
