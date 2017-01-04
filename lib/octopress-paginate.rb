@@ -130,14 +130,19 @@ module Octopress
     end
 
     def collection(page)
-      collection = if page['paginate']['collection'] == 'posts'
+      name = page['paginate']['collection']
+      collection = if name == 'posts'
         if defined?(Octopress::Multilingual) && page.lang
           page.site.posts_by_language(page.lang)
         else
           page.site.posts.docs.reverse
         end
+      elsif page.site.collections.key? name
+        page.site.collections[name].docs
+      elsif page.site.data.key? name
+        page.site.data[name]
       else
-        page.site.collections[page['paginate']['collection']].docs
+        raise Exception, "Could not find collection or data with name: #{name}"
       end
       
       if page['paginate']['reversed'] == true
