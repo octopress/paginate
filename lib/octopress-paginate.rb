@@ -145,11 +145,11 @@ module Octopress
       end
 
       if categories = page.data['paginate']['categories']
-        collection = collection.reject{|p| (p.categories & categories).empty?}
+        collection = collection.reject{|p| (p['categories'] & categories).empty?}
       end
 
       if tags = page.data['paginate']['tags']
-        collection = collection.reject{|p| (p.tags & tags).empty?}
+        collection = collection.reject{|p| (p['tags'] & tags).empty?}
       end
 
       collection
