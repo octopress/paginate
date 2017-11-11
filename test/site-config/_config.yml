@@ -1,5 +1,5 @@
 name: Test site
-gems:
+plugins:
   - octopress-paginate
 timezone: UTC
 markdown: redcarpet

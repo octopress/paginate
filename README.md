@@ -37,7 +37,7 @@ $ gem install octopress-paginate
 Then add the gem to your Jekyll configuration.
 
 ```ruby
-gems:
+plugins:
   - octopress-paginate
 ```
 
